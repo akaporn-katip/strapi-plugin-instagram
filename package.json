@@ -1,6 +1,6 @@
 {
-  "name": "@webvibe-io/strapi-plugin-instagram",
-  "version": "1.2.5",
+  "name": "@bom17457/strapi-plugin-instagram",
+  "version": "1.2.6",
   "description": "Instagram plugin for Strapi headless CMS",
   "keywords": [
     "strapi",
@@ -30,10 +30,15 @@
       "name": "Peter Kepes - webvibe.io",
       "email": "dev@webvibe.io",
       "url": "https://webvibe.io"
+    },
+    {
+      "name": "Akaoprn Katip",
+      "email": "akaporn.katip@gmail.com",
+      "url": "https://katipwork.com"
     }
   ],
   "engines": {
-    "node": ">=14.19.1 <=16.x.x",
+    "node": ">=14.19.1 <=20.10.0",
     "npm": ">=6.0.0"
   },
   "license": "MIT"
