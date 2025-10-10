@@ -158,7 +158,7 @@ const Settings = () => {
   const delete_request_url = `${base_redirect_url}/data-delete`;
 
   const openInstagramAuth = (instagram_app_id, oauth_redirect_url, state) => {
-    const facebook_auth_url = 'https://www.facebook.com/dialog/oauth';
+    const ig_auth_url = 'https://www.instagram.com/oauth/authorize';
     const businessScopes = [
       'instagram_business_basic',
       // 'instagram_business_manage_messages',
@@ -167,7 +167,7 @@ const Settings = () => {
       // 'instagram_business_manage_insights'
     ].join(',');
     const url =
-      `${facebook_auth_url}` +
+      `${ig_auth_url}` +
       `?client_id=${instagram_app_id}` +
       `&redirect_uri=${oauth_redirect_url}` +
       `&scope=${businessScopes}` +
