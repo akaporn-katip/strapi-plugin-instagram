@@ -12,16 +12,25 @@ module.exports = ({ strapi }) => ({
       return { error: "Instagram token state error", status: 400 };
     }
 
-    const apiResult = await fetchInstagram.callInstagramApi(
-      "/oauth/access_token",
+    // Create form data for POST request
+    const formData = new FormData();
+    formData.append("client_id", settings.instagram_app_id);
+    formData.append("client_secret", settings.instagram_app_secret);
+    formData.append("grant_type", "authorization_code");
+    formData.append("redirect_uri", redirect_uri);
+    formData.append("code", code);
+
+    // Make fetch request to Instagram Basic Display API
+    const response = await fetch(
+      "https://api.instagram.com/oauth/access_token",
       {
-        client_id: settings.instagram_app_id,
-        client_secret: settings.instagram_app_secret,
-        grant_type: "authorization_code",
-        redirect_uri: redirect_uri,
-        code: code,
+        method: "POST",
+        body: formData,
       }
     );
+
+    const apiResult = await response.json();
+    apiResult.status = response.status;
 
     //settings.state = undefined;
     settings.lastApiResponse = JSON.stringify(apiResult);
@@ -72,7 +81,8 @@ module.exports = ({ strapi }) => ({
     const settings = await getPluginSettings();
     if (settings.longLivedAccessToken === undefined) {
       return {
-        error: "Instagram refreshLongLivedToken() error, there is no long lived token!",
+        error:
+          "Instagram refreshLongLivedToken() error, there is no long lived token!",
         status: 400,
       };
     }
@@ -102,22 +112,23 @@ module.exports = ({ strapi }) => ({
     const settings = await getPluginSettings();
     if (settings.longLivedAccessToken === undefined) {
       return {
-        error: "Instagram checkTokenExpiration() error, there is no long lived token!",
+        error:
+          "Instagram checkTokenExpiration() error, there is no long lived token!",
         status: 400,
       };
     }
 
     const diffExpiration = dateUtils.dateDifferenceToNow(settings.expiresAt);
     const diffRefreshed = dateUtils.dateDifferenceToNow(settings.refreshTime);
-    
-    // Refresh if token refreshed more than 10 days or 
+
+    // Refresh if token refreshed more than 10 days or
     // expiration closer than 10 days.
     // Currently expiration days is 60 at the API so
     // refresh time will be true first but I check expiration anyway (for safety)
     if (diffExpiration <= 10 || diffRefreshed >= 10) {
       return this.refreshLongLivedToken();
     } else {
-      return { 'refreshed': false };
+      return { refreshed: false };
     }
-  }
+  },
 });

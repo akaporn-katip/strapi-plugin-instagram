@@ -158,12 +158,19 @@ const Settings = () => {
   const delete_request_url = `${base_redirect_url}/data-delete`;
 
   const openInstagramAuth = (instagram_app_id, oauth_redirect_url, state) => {
-    const instagram_auth_url = 'https://api.instagram.com/oauth/authorize';
+    const facebook_auth_url = 'https://www.facebook.com/dialog/oauth';
+    const businessScopes = [
+      'instagram_business_basic',
+      // 'instagram_business_manage_messages',
+      // 'instagram_business_manage_comments',
+      // 'instagram_business_content_publish',
+      // 'instagram_business_manage_insights'
+    ].join(',');
     const url =
-      `${instagram_auth_url}` +
+      `${facebook_auth_url}` +
       `?client_id=${instagram_app_id}` +
       `&redirect_uri=${oauth_redirect_url}` +
-      `&scope=user_profile,user_media` +
+      `&scope=${businessScopes}` +
       `&response_type=code&state=${state}`;
     if (typeof window !== 'undefined') window.open(url, '_self');
   };
