@@ -24,7 +24,7 @@ module.exports = ({ strapi }) => ({
       ctx.body = await strapi
         .plugin('instagram')
         .service('instagramBasicApi')
-        .downloadImages(false);
+        .downloadImages(true);
       // Return images from database
       ctx.body = await strapi
         .plugin('instagram')
