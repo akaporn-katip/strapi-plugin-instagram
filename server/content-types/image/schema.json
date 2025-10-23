@@ -35,6 +35,11 @@
     "mediaId": {
       "type": "integer"
     },
+    "mediaType": {
+      "type": "string",
+      "required": false,
+      "default": ""
+    },
     "timestamp": {
       "type": "datetime"
     },

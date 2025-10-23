@@ -91,6 +91,14 @@ module.exports = ({ strapi }) => ({
           caption: element.caption,
           media_type: element.media_type,
         });
+      } else if (element.media_type == "VIDEO") {
+        images.push({
+          id: element.id,
+          url: element.media_url,
+          timestamp: element.timestamp,
+          caption: element.caption,
+          media_type: element.media_type,
+        });
       } else if (element.media_type == "CAROUSEL_ALBUM") {
         const album = await this.downloadAlbum(element, token);
         images = images.concat(album);
@@ -120,6 +128,7 @@ module.exports = ({ strapi }) => ({
             originalUrl: image.url,
             timestamp: image.timestamp,
             caption: image.caption,
+            mediaType: image.media_type,
             publishedAt: new Date(),
           },
         });
@@ -132,6 +141,7 @@ module.exports = ({ strapi }) => ({
             originalUrl: image.url,
             timestamp: image.timestamp,
             caption: image.caption,
+            mediaType: image.media_type,
             publishedAt: new Date(),
           },
         });
