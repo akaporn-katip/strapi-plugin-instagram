@@ -27,7 +27,7 @@ module.exports = ({ strapi }) => ({
         .downloadImages(true);
       // Return images from database
       const params = ctx.query;
-      console.log("params", params);
+      strapi.log.info("Final params:", params);
       ctx.body = await strapi
         .plugin("instagram")
         .service("instaimage")
