@@ -110,7 +110,7 @@ module.exports = ({ strapi }) => ({
 
   async checkTokenExpiration() {
     const settings = await getPluginSettings();
-    if (settings.longLivedAccessToken === undefined) {
+    if (settings?.longLivedAccessToken === undefined) {
       return {
         error:
           "Instagram checkTokenExpiration() error, there is no long lived token!",

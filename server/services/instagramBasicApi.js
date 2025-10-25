@@ -120,7 +120,6 @@ module.exports = ({ strapi }) => ({
   async insertImagesToDatabase(images) {
     for (let image of images) {
       const isImageExists = await this.isImageExists(image);
-      console.log(`isImageExists`, isImageExists);
       if (!isImageExists) {
         const entry = await strapi.db.query(dbImageName).create({
           data: {
@@ -132,7 +131,6 @@ module.exports = ({ strapi }) => ({
             publishedAt: new Date(),
           },
         });
-        console.log("Create image complete.");
       } else {
         const entry = await strapi.db.query(dbImageName).update({
           where: { instagramId: image.id },
@@ -145,7 +143,6 @@ module.exports = ({ strapi }) => ({
             publishedAt: new Date(),
           },
         });
-        console.log("Update image complete.");
       }
     }
   },
